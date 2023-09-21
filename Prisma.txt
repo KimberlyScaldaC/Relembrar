@@ -1,0 +1,86 @@
+INSTALAR EXTENÇÕES
+procura prisma e baixar duas
+instalar SQLite Viewer
+
+
+PS C:\Users\alunodev11> cd..
+PS C:\Users> cd..
+PS C:\> cd .\DevC\
+PS C:\DevC> mkdir AtividadePOO
+
+Abrir A Pasta manualmente
+
+PS C:\DevC\AtividadePOO> npm init -y
+PS C:\DevC\AtividadePOO> npm install typescript ts-node @types/node --save-dev
+PS C:\DevC\AtividadePOO> npx tsc --init
+PS C:\DevC\AtividadePOO> npm install prisma --save-dev
+PS C:\DevC\AtividadePOO> npx prisma init --datasource-provider sqlite
+
+TEM QUE MODELAR O BANDO DE DADOS NO ARQUIVO schema.prisma
+MODELO -> 
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+ESSE COMANDO FAZ CRIAR O BANCO DE DADOS ENTAO QUALQUER MODIFICAÇÃO NO BD TEM QUE DAR O COMANDO DNV
+PS C:\DevC\AtividadePOO> npx prisma migrate dev --name init
+
+DEPOIS CRIA UMA PASTA MANUALMENTE CHAMADA src
+DENTRO DESTA PASTA CRIA UM ARQUIVO CHAMADO script.ts
+
+DEPOIS TEM QUE COLA UM PADRAO NELE ->
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+    //Criar um novo Userregistro
+    const user = await prisma.user.create({
+        data: {
+          name: 'Alice',
+          email: 'alice@prisma.io',
+        },
+      })
+      console.log(user)
+
+    //Recuperar todos User os registros
+    const users = await prisma.user.findMany()
+    console.log(users)
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
+
+
+PAREI NO NÚMERO 4.2
+
+PS C:\DevC\AtividadePOO>
+
+
+
+
+
+
+
+
