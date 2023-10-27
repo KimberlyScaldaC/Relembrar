@@ -1,0 +1,92 @@
+M   V   C
+o   i   o
+d   e   n
+e   w   t
+l       r
+        o
+	l
+	l
+	e
+	r
+
+Model      -> manipulação dos dados
+View       -> interação do usuário
+Controller -> camada de controle
+
+---------------------------------------------
+
+Regra de negócio -> são aqueles requisitos que são essencial para o soft
+
+
+
+Requisito Funcional ->
+
+
+
+Requisito não Funcional ->
+
+---------------------------------------------
+
+mudar o ->
+
+//para expecifica aonde esta o codigo do projeto
+"rootDir": "./src",                            /* Specify the root folder within your source files. */
+
+
+// seria para criar uma pasta com a tradução por javascript
+"outDir": "./dist",                         /* Specify an output folder for all emitted files. */
+  
+---------------------------------------------  
+
+o comando ->
+PS C:\DevC\projetonew> npx tsc
+serve para fazer a tradução das linguagens
+
+
+PS C:\DevC\projetonew> npx ts-node ./src/script.ts
+ele faz roda o codigo do script.ts
+
+PS C:\DevC\projetonew> npm install express
+fazer esse comando despois de criar o server.ts na pasra src
+
+PS C:\DevC\projetonew> npm install --save-dev @types/express
+
+---------------------------------------------
+
+instala o DotENV, Thunder Client
+
+cria no src para cria um arquico views/index.html
+
+---------------------------------------------
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+//funcao assincrona
+async function main() {
+    try{
+        const newUser = await prisma.user.create({
+            data: {
+                name: "kimberly",
+                email: "kimberly@gmail.com"
+            }
+        })
+        
+        console.log(newUser)
+        
+    }catch(error){
+        console.log(error)
+    }
+  
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
